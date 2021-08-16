@@ -14,6 +14,8 @@ began failing these tests. There, we detected mutations consisting of
 the opposite modification that fixed the bug, which likely introduced
 it.
 
+![selection criteria for Bugswarm](img/bugswarm_selection_criteria.png)
+
 #### Traccar[^2]
 
 In this case, the bug was fixed after the developer changed the *==*
@@ -338,6 +340,8 @@ time, however, the commit in which we detect the opposing transformation
 does not necessarily cause the software to fail its tests and the file
 in question may have changed multiple times since the point in which
 this inference takes place.
+
+![selection criteria for Defects4J](img/d4j_selection_criteria.png)
 
 #### Closure_18b
 
