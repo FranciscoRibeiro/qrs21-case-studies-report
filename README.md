@@ -228,7 +228,8 @@ replacement*.
 |  **Start-End Lines**  |        `46-46`         |
 | **Start-End Columns** |        `35-36`         |
 
-Mutation’s location: *ZXing* project
+Table
+<a href="#tab:zxing_comp" data-reference-type="ref" data-reference="tab:zxing_comp">3</a> - Mutation’s location: *ZXing* project
 
 </div>
 
@@ -256,12 +257,19 @@ effect as aboslute line numbers, with 10 patches generated.
 This fault was fixed by adding the extra argument *0* to a call to the
 method *add*.
 
+<div id="lst:commons_lang_fix">
+
 ```
 907c907
 <         classes.add(cls);
 ---
 >         classes.add(**0, **cls);
 ```
+
+Listing
+<a href="#lst:commons_lang_fix" data-reference-type="ref" data-reference="lst:commons_lang_fix">7</a> - Fix: argument number change
+
+</div>
 
 This change can also be described in terms of a mutation operator:
 `ArgumentNumberChange`. By examining the faulty commit, we verify that a
@@ -271,12 +279,19 @@ others ahead of it distributed over the top-4. After *Morpheus* analyzed
 the changes to the source code it detected 11 mutation operators: 10
 *variable replacements* and 1 *argument number change*.
 
+<div id="lst:commons_lang_bug">
+
 ```
 907c907
 <         classes.add(||0, ||cls);
 ---
 >         classes.add(cls);
 ```
+
+Listing
+<a href="#lst:commons_lang_bug" data-reference-type="ref" data-reference="lst:commons_lang_bug">8</a> - Bug: argument number change
+
+</div>
 
 The bug was caused by the same mutation operator which fixed it —
 `ArgumentNumberChange` — but this time the argument *0* was removed,
@@ -289,7 +304,8 @@ which consists of the opposing effect described for the patch.
 |  **Start-End Lines**  |       `907-907`        |
 | **Start-End Columns** |         `9-25`         |
 
-Mutation’s location: *Apache Commons Lang* project
+Table
+<a href="#tab:commons_lang_comp" data-reference-type="ref" data-reference="tab:commons_lang_comp">4</a> - Mutation’s location: *Apache Commons Lang* project
 
 </div>
 
@@ -312,12 +328,19 @@ generating 62 patches.
 This specific bug was fixed after making sure a member variable was
 properly initialized.
 
+<div id="lst:openpnp_fix">
+
 ```
 82c82
 <     private LensCalibrationParams calibration;
 ---
 >     private LensCalibrationParams calibration** = new LensCalibrationParams()**;
 ```
+
+Listing
+<a href="#lst:openpnp_fix" data-reference-type="ref" data-reference="lst:openpnp_fix">9</a> - Fix: variable assignment
+
+</div>
 
 Unassigned variable references are a common cause for faults as it leads
 to *null pointer exceptions*. Here, the bug can be easily fixed by
@@ -328,6 +351,8 @@ does not help in identifying the guilty line, as it fails to include the
 faulty element in its ranking. *Morpheus*, however, is able to locate
 the bug inducing modification.
 
+<div id="lst:openpnp_bug">
+
 ```
 84c82,86
 <     private LensCalibration calibration|| = new LensCalibration()||;
@@ -335,19 +360,24 @@ the bug inducing modification.
 >     private LensCalibrationParams calibration;
 ```
 
+Listing
+<a href="#lst:openpnp_bug" data-reference-type="ref" data-reference="lst:openpnp_bug">10</a> - Bug: member variable assignment deletion
+
+</div>
+
 In total, *Morpheus* infers 44 mutation operators in the buggy commit:
 19 *variable replacements*, 12 *void method deletions*, 3 *non-void
 method deletions*, 3 *relational operator replacements*, 2 *statement
 deletions*, 2 *conditional operator insertions*, 1 change to a *return
 value* and 1 *member variable assignment deletion* — Listing
-<a href="#lst:mvad-intro" data-reference-type="ref" data-reference="lst:mvad-intro">[lst:mvad-intro]</a>.
+<a href="#lst:openpnp_bug" data-reference-type="ref" data-reference="lst:openpnp_bug">10</a>.
 Although the fix (Listing
-<a href="#lst:mvad-fix" data-reference-type="ref" data-reference="lst:mvad-fix">[lst:mvad-fix]</a>)
+<a href="#lst:openpnp_fix" data-reference-type="ref" data-reference="lst:openpnp_fix">9</a>)
 does not correspond to any of the mutation operators listed in Table
 <a href="#tab:mut_ops" data-reference-type="ref" data-reference="tab:mut_ops">[tab:mut_ops]</a>,
 the change which caused the bug can be mapped to the
 `MemberVariableAssignmentDeletion` operator (Listing
-<a href="#lst:mvad-intro" data-reference-type="ref" data-reference="lst:mvad-intro">[lst:mvad-intro]</a>).
+<a href="#lst:openpnp_bug" data-reference-type="ref" data-reference="lst:openpnp_bug">10</a>).
 
 <div id="tab:openpnp_comp">
 
@@ -356,13 +386,12 @@ the change which caused the bug can be mapped to the
 |  **Start-End Lines**  |              `82-82`               |
 | **Start-End Columns** |              `35-46`               |
 
-Mutation’s location: *OpenPnP* project
+Table
+<a href="#tab:openpnp_comp" data-reference-type="ref" data-reference="tab:openpnp_comp">5</a> - Mutation’s location: *OpenPnP* project
 
 </div>
 
-Even though there is no mutation operator in Table
-<a href="#tab:mut_ops" data-reference-type="ref" data-reference="tab:mut_ops">[tab:mut_ops]</a>
-performing the opposite transformation, we implemented this behaviour
+Even though none of the mutation operators mentioned in this work performs the opposite transformation, we implemented this behaviour
 for the repair process as a mutation able to insert an initialization —
 `MemberVariableAssignmentInsertion`. Regardless of the focus one wishes
 to apply for patch generation — efficacy or efficiency — the repair
@@ -395,18 +424,26 @@ inference takes place.
 For this project, the fix was obtained by deleting the second part of a
 condition.
 
+<div id="lst:closure18b_fix">
+
 ```
 1288c1288
 <       if (options.dependencyOptions.needsManagement() ||&& options.closurePass||) {
 ---
 >       if (options.dependencyOptions.needsManagement()) {
 ```
+Listing
+<a href="#lst:closure18b_fix" data-reference-type="ref" data-reference="lst:closure18b_fix">11</a> - Fix: conditional operator deletion
+
+</div>
 
 The `ConditionalOperatorDeletion` mutation operator can mimic this kind
 of change. An SFL report does not provide much help in spotting the
 faulty line as it is ranked at the 406th place, with 2331 lines above it
 and tied against another 35 lines. However, by using *Morpheus* to
 analyze past commits, we can find the opposite transformation.
+
+<div id="lst:closure18b_bug">
 
 ```
 1272c1280,1282
@@ -417,15 +454,20 @@ analyze past commits, we can find the opposite transformation.
 >           **options.closurePass**) {
 ```
 
+Listing
+<a href="#lst:closure18b_bug" data-reference-type="ref" data-reference="lst:closure18b_bug">12</a> - Bug: conditional operator insertion
+
+</div>
+
 By going back 233 commits, we verify that 8 files were modified, 65
 lines were added and 40 were deleted. Among those changes, 11 mutations
 were inferred: 3 *constant replacements*, 2 *variable replacements*, 2
 *void method deletions*, 2 *non-void method deletions* and 2
 *conditional operator insertions* — one of these last two being the
 opposite transformation to the fix in Listing
-<a href="#lst:closure18b_fix" data-reference-type="ref" data-reference="lst:closure18b_fix">[lst:closure18b_fix]</a>,
+<a href="#lst:closure18b_fix" data-reference-type="ref" data-reference="lst:closure18b_fix">11</a>,
 as seen in Listing
-<a href="#lst:closure18b_bug" data-reference-type="ref" data-reference="lst:closure18b_bug">[lst:closure18b_bug]</a>.
+<a href="#lst:closure18b_bug" data-reference-type="ref" data-reference="lst:closure18b_bug">12</a>.
 
 <div id="tab:closure18b_comp">
 
@@ -434,7 +476,8 @@ as seen in Listing
 |           **Callable**           |    `Compiler#parseInputs()`    |
 | **Start-End New Relative Lines** |            `48-48`             |
 
-Mutation’s location: *Closure_18b* project
+Table
+<a href="#tab:closure18b_comp" data-reference-type="ref" data-reference="tab:closure18b_comp">6</a> - Mutation’s location: *Closure_18b* project
 
 </div>
 
@@ -442,9 +485,9 @@ Table
 <a href="#tab:closure18b_comp" data-reference-type="ref" data-reference="tab:closure18b_comp">6</a>
 shows the inferred mutation that provides the necessary information for
 the repair process to produce the fix. Listings
-<a href="#lst:closure18b_fix" data-reference-type="ref" data-reference="lst:closure18b_fix">[lst:closure18b_fix]</a>
+<a href="#lst:closure18b_fix" data-reference-type="ref" data-reference="lst:closure18b_fix">11</a>
 and
-<a href="#lst:closure18b_bug" data-reference-type="ref" data-reference="lst:closure18b_bug">[lst:closure18b_bug]</a>
+<a href="#lst:closure18b_bug" data-reference-type="ref" data-reference="lst:closure18b_bug">12</a>
 show that the mutated and the repaired line numbers differ. As such,
 trying to automatically repair based on this information will not yield
 the desired fix. However, if the repair process takes into account the
@@ -456,11 +499,13 @@ into account — `parseInputs` for the component in Table
 <a href="#tab:closure18b_comp" data-reference-type="ref" data-reference="tab:closure18b_comp">6</a>
 — and tries to apply mutations in nodes inside those sub-trees, there
 are 94 generated patches with one being the desired fix in Listing
-<a href="#lst:closure18b_fix" data-reference-type="ref" data-reference="lst:closure18b_fix">[lst:closure18b_fix]</a>.
+<a href="#lst:closure18b_fix" data-reference-type="ref" data-reference="lst:closure18b_fix">11</a>.
 
 #### Closure_168b
 
 To fix this bug, the value of a constant was changed from 2 to 1.
+
+<div id="lst:closure168b_fix">
 
 ```
 1996c1996
@@ -469,10 +514,17 @@ To fix this bug, the value of a constant was changed from 2 to 1.
 >       if (t.getScopeDepth() <= **1**) {
 ```
 
+Listing
+<a href="#lst:closure168b_fix" data-reference-type="ref" data-reference="lst:closure168b_fix">13</a> - Fix: constant replacement
+
+</div>
+
 Such a modification can be represented by the `ConstantReplacement`
 operator. The generated SFL report ranks line 1996 at spot 407 together
 with 59 other lines and with 1462 candidate lines ahead in the ranking.
 *Morpheus* reports the same kind of transformation 10 commits back.
+
+<div id="lst:closure168b_bug">
 
 ```
 1994c1984
@@ -481,10 +533,15 @@ with 59 other lines and with 1462 candidate lines ahead in the ranking.
 >       if (t.getScopeDepth() <= **2**) {
 ```
 
+Listing
+<a href="#lst:closure168b_bug" data-reference-type="ref" data-reference="lst:closure168b_bug">14</a> - Bug: constant replacement
+
+</div>
+
 This commit modifies 6 files, adds 15 lines and deletes 123. 3 mutation
 operators were inferred amid these changes: 1 *accessor method change*,
 1 *conditional operator deletion* and 1 *constant replacement*. Listing
-<a href="#lst:closure168b_bug" data-reference-type="ref" data-reference="lst:closure168b_bug">[lst:closure168b_bug]</a>
+<a href="#lst:closure168b_bug" data-reference-type="ref" data-reference="lst:closure168b_bug">14</a>
 shows the one we want to focus on.
 
 <div id="tab:closure168b_comp">
@@ -494,7 +551,8 @@ shows the one we want to focus on.
 |           **Callable**           | `FirstOrderFunctionAnalyzer#visit(...)` |
 | **Start-End New Relative Lines** |                  `9-9`                  |
 
-Mutation’s location: *Closure_168b* project
+Table
+<a href="#tab:closure168b_comp" data-reference-type="ref" data-reference="tab:closure168b_comp">7</a> - Mutation’s location: *Closure_168b* project
 
 </div>
 
@@ -513,11 +571,13 @@ means *constant replacements* are applied to all possible nodes in the
 successfully finds a fix. Still, if the repair process uses the relative
 line numbers, the number of generated patches decreases to 11 without
 losing the ability to produce the intended fix in Listing
-<a href="#lst:closure168b_fix" data-reference-type="ref" data-reference="lst:closure168b_fix">[lst:closure168b_fix]</a>.
+<a href="#lst:closure168b_fix" data-reference-type="ref" data-reference="lst:closure168b_fix">13</a>.
 
 #### Closure_62b
 
 Only one operator was modified to fix this bug.
+
+<div id="lst:closure62b_fix">
 
 ```
 98c98
@@ -526,10 +586,17 @@ Only one operator was modified to fix this bug.
 >       && 0 <= charno && charno **<=** sourceExcerpt.length()) {
 ```
 
+Listing
+<a href="#lst:closure62b_fix" data-reference-type="ref" data-reference="lst:closure62b_fix">15</a> - Fix: relational operator replacement
+
+</div>
+
 This change can be expressed by the `RelationalOperatorReplacement`
 operator. The SFL report for this case study fails to rank the faulty
 line. However, looking back 7 commits, *Morpheus* is able to detect a
 relevant mutation.
+
+<div id="lst:closure62b_bug">
 
 ```
 98c96
@@ -538,20 +605,38 @@ relevant mutation.
 >       && 0 <= charno && charno **<** sourceExcerpt.length()) {
 ```
 
+Listing
+<a href="#lst:closure62b_bug" data-reference-type="ref" data-reference="lst:closure62b_bug">16</a> - Bug: relational operator replacement
+
+</div>
+
 The commit in question only modifies 2 files by adding 1 line and
 deleting 21. In terms of inferred mutations, only one is detected: a
 *relational operator replacement* — Listing
-<a href="#lst:closure62b_bug" data-reference-type="ref" data-reference="lst:closure62b_bug">[lst:closure62b_bug]</a>.
+<a href="#lst:closure62b_bug" data-reference-type="ref" data-reference="lst:closure62b_bug">16</a>.
 Translating source code changes into mutation operators proves to be
 extremely useful in this example. If we focused solely on the SFL
 report, the repair process would not have a starting point in the place
 wherethe bug resides.
 
+<div id="tab:closure62b_comp">
+
+|      **Mutation Operator**       |          `RelationalOperatorReplacement`          |
+|:--------------------------------:|:---------------------------------------:|
+|           **Callable**           | `LightweightMessageFormatter#format(...)` |
+| **Start-End Old Relative Lines** |                  `32-32`                  |
+| **Start-End New Relative Lines** |                  `30-30`                  |
+
+Table
+<a href="#tab:closure62b_comp" data-reference-type="ref" data-reference="tab:closure62b_comp">8</a> - Mutation’s location: *Closure_62b* project
+
+</div>
+
 Again, the method name and relative line numbers are the most useful
 information in this case study. Applying *relational operator
 replacements* in all possible nodes in method `format` creates 35
 patches and successfully fixes the error. Note, however, that Table
-<a href="#tab:closure62b_comp" data-reference-type="ref" data-reference="tab:closure62b_comp">[tab:closure62b_comp]</a>
+<a href="#tab:closure62b_comp" data-reference-type="ref" data-reference="tab:closure62b_comp">8</a>
 now also shows the relative lines for the original file (32-32). This is
 because, for this specific case, the relative lines from the mutated
 file would not match the same place in the file we want to repair.
@@ -564,6 +649,8 @@ efficient approach is the most advantageous.
 
 This particular bug can be fixed by changing a relational operator.
 
+<div id="lst:closure73b_fix">
+
 ```
 1045c1045
 <       if (c > 0x1f && c ||<=|| 0x7f) {
@@ -571,10 +658,17 @@ This particular bug can be fixed by changing a relational operator.
 >       if (c > 0x1f && c **<** 0x7f) {
 ```
 
+Listing
+<a href="#lst:closure73b_fix" data-reference-type="ref" data-reference="lst:closure73b_fix">17</a> - Fix: relational operator replacement
+
+</div>
+
 This change consists of a *relational operator replacement*. The
 corresponding SFL report ranks the faulty line in 5th place tied with 2
 other lines and behind 14 others. The analysis by *Morpheus* detects a
 similar but opposite transformation 922 commits back.
+
+<div id="lst:closure73b_bug">
 
 ```
 802c841
@@ -584,13 +678,18 @@ similar but opposite transformation 922 commits back.
 ```
 
 Listing
-<a href="#lst:closure73b_bug" data-reference-type="ref" data-reference="lst:closure73b_bug">[lst:closure73b_bug]</a>
+<a href="#lst:closure73b_bug" data-reference-type="ref" data-reference="lst:closure73b_bug">18</a> - Bug: relational operator replacement
+
+</div>
+
+Listing
+<a href="#lst:closure73b_bug" data-reference-type="ref" data-reference="lst:closure73b_bug">18</a>
 shows one of the changes that occurred throughout the 36 files that were
 modified by 546 line additions and 80 deletions. A total of 14 mutation
 operators were inferred by *Morpheus*: 14 *argument number changes*, 2
 *non-void method deletions*, 1 *constant replacement* and 1 *relational
 operator replacement* — Listing
-<a href="#lst:closure73b_bug" data-reference-type="ref" data-reference="lst:closure73b_bug">[lst:closure73b_bug]</a>.
+<a href="#lst:closure73b_bug" data-reference-type="ref" data-reference="lst:closure73b_bug">18</a>.
 
 <div id="tab:closure73b_comp">
 
@@ -598,12 +697,13 @@ operator replacement* — Listing
 |:---------------------:|:-------------------------------:|
 |     **Callable**      | `CodeGenerator#strEscape(...)`  |
 
-Mutation’s location: *Closure_73b* project
+Table
+<a href="#tab:closure73b_comp" data-reference-type="ref" data-reference="tab:closure73b_comp">9</a> - Mutation’s location: *Closure_73b* project
 
 </div>
 
 Table
-<a href="#tab:closure73b_comp" data-reference-type="ref" data-reference="tab:closure73b_comp">8</a>
+<a href="#tab:closure73b_comp" data-reference-type="ref" data-reference="tab:closure73b_comp">9</a>
 does not show information about line numbers because none of those match
 the same places in the file to be repaired. Patches created targeting
 those locations are, thus, not coherent. For this specific case study,
@@ -619,6 +719,8 @@ the error.
 This fix consists of changing a variable that is being passed as a
 parameter.
 
+<div id="lst:lang6b_fix">
+
 ```
 95c95
 <       pos += Character.charCount(Character.codePointAt(input, ||pos||));
@@ -626,10 +728,17 @@ parameter.
 >       pos += Character.charCount(Character.codePointAt(input, **pt**));
 ```
 
+Listing
+<a href="#lst:lang6b_fix" data-reference-type="ref" data-reference="lst:lang6b_fix">19</a> - Fix: variable replacement
+
+</div>
+
 One can apply the `VarToVarReplacement` mutation operator and produce
 the same effect. The SFL report places line 95 in 7th place together
 with one other line and behind 118 others. *Morpheus* detects a similar
 mutation 455 commits back.
+
+<div id="lst:lang6b_bug">
 
 ```
 95c95
@@ -638,11 +747,30 @@ mutation 455 commits back.
 >       **pos** += Character.charCount(Character.codePointAt(input, **pos**));
 ```
 
+Listing
+<a href="#lst:lang6b_bug" data-reference-type="ref" data-reference="lst:lang6b_bug">20</a> - Bug: variable replacement
+
+</div>
+
 The commit which introduces the change in Listing
-<a href="#lst:lang6b_bug" data-reference-type="ref" data-reference="lst:lang6b_bug">[lst:lang6b_bug]</a>
+<a href="#lst:lang6b_bug" data-reference-type="ref" data-reference="lst:lang6b_bug">20</a>
 modifies 2 files, adds 20 lines and deletes another 20. Here, 7
 mutations are inferred: 1 *void method deletion* and 6 *variable
 replacements* — one of these being the reported one.
+
+<div id="tab:lang6b_comp">
+
+|      **Mutation Operator**       |          `VarToVarReplacement`          |
+|:--------------------------------:|:---------------------------------------:|
+|           **Callable**           | `CharSequenceTranslator#translate(...)` |
+| **Start-End New Lines** |                  `95-95`                  |
+| **Start-End New Columns** |                  `73-75`                  |
+| **Start-End New Relative Lines** |                  `20-20`                  |
+
+Table
+<a href="#tab:lang6b_comp" data-reference-type="ref" data-reference="tab:lang6b_comp">10</a> - Mutation’s location: *Lang_6b* project
+
+</div>
 
 This time, there is a match between the lines and columns of the mutated
 file and the one to be repaired. As such, viable patches can be
@@ -650,7 +778,8 @@ generated by resorting to every node finding criteria. If the repair
 process focuses on the nodes inside methods, without considering the
 line numbers reported, 129 patches can be generated. Its more efficient
 counterpart, which focuses on relative lines, reduces patch creation to
-111. However, if we target the absolute line numbers instead — line 95
+111.
+However, if we target the absolute line numbers instead — line 95
 in this case — we further reduce the number of created patches to 89.
 This is something that is not always possible, but in this case, because
 line numbers match between versions, the generated patches are viable.
