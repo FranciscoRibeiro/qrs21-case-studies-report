@@ -2,7 +2,9 @@ The main idea we want to deliver is that the *semantics* behind a *bug*
 can guide the repair process of a program. To show this, we used
 *Morpheus* to analyze *Bugswarm* and *Defects4J*, extracting 10 case
 studies from these repositories. These experiments are available for
-replication[1].
+replication:
+- [Bugswarm case studies](https://github.com/FranciscoRibeiro/bugswarm-case-studies)
+- [Defects4J case studies](https://github.com/FranciscoRibeiro/d4j-case-studies)
 
 ## Bugswarm Case Studies
 
@@ -16,7 +18,7 @@ it.
 
 ![Selection criteria for Bugswarm](img/bugswarm_selection_criteria.png)
 
-#### Traccar[2]
+#### [Traccar](https://github.com/traccar/traccar)
 
 In this case, the bug was fixed after the developer changed the *==*
 sign to *!=*.
@@ -88,7 +90,7 @@ on method names or relative lines, as the first is less efficient, thus
 generating unnecessary patches (277) and the second one is equivalent to
 considering absolute line numbers (41).
 
-#### MyBatis[3]
+#### [MyBatis](https://github.com/mybatis/mybatis-3)
 
 This bug fix consists of changing the variable from *select* to
 *options*.
@@ -174,7 +176,7 @@ fixes the bug by producing 60 patches.
 The SFL report did not include the faulty line, meaning our approach is
 more effective at generating the fix.
 
-#### ZXing[4]
+#### [ZXing](https://github.com/zxing/zxing)
 
 The patch for this specific bug was obtained after the developer changed
 the variable *e1* to the constant *1*.
@@ -252,7 +254,7 @@ step. Again, collecting every node inside detected methods is much less
 efficient, producing 117 patches. Relative line numbers achieve the same
 effect as aboslute line numbers, with 10 patches generated.
 
-#### Apache Commons Lang[5]
+#### [Apache Commons Lang](https://github.com/apache/commons-lang)
 
 This fault was fixed by adding the extra argument *0* to a call to the
 method *add*.
@@ -323,7 +325,7 @@ inside methods’ sub-trees generates 176 patches due to its inherent
 inefficiency and relative numbers are equal to its absolute counterpart,
 generating 62 patches.
 
-#### OpenPnP[6]
+#### [OpenPnP](https://github.com/openpnp/openpnp)
 
 This specific bug was fixed after making sure a member variable was
 properly initialized.
@@ -788,15 +790,3 @@ on lines and columns, allows for the creation of the lesser number of
 patches, generating 18. All the four strategies were able to fix the
 bug, with some of them showing that their increased efficiency did not
 compromise their ability to create the desired fix for this case study.
-
-[1] <https://figshare.com/s/6f9c1bc2ab94101570aa>
-
-[2] <https://github.com/traccar/traccar>
-
-[3] <https://github.com/mybatis/mybatis-3>
-
-[4] <https://github.com/zxing/zxing>
-
-[5] <https://github.com/apache/commons-lang>
-
-[6] <https://github.com/openpnp/openpnp>
